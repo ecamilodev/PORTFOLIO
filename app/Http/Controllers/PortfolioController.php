@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -43,17 +44,26 @@ class PortfolioController extends Controller
             return back()->with('success', 'Mensaje enviado correctamente.');
         }
 
+        if (empty($validated['recaptcha_token'])) {
+            Log::error('reCAPTCHA: token vacío recibido, se omite la llamada a Google.');
+
+            return back()->with('error', 'Verificación de seguridad fallida. Inténtalo de nuevo.');
+        }
+
         try {
             $recaptcha = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
                 'secret'   => config('portfolio.recaptcha.secret_key'),
                 'response' => $validated['recaptcha_token'],
                 'remoteip' => $request->ip(),
             ])->json();
-        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+        } catch (\Throwable $e) {
+            Log::error('reCAPTCHA: fallo al contactar a Google.', ['message' => $e->getMessage()]);
             $recaptcha = null;
         }
 
         if (empty($recaptcha['success']) || ($recaptcha['score'] ?? 0) < 0.5) {
+            Log::error('reCAPTCHA: verificación fallida.', ['response' => $recaptcha]);
+
             return back()->with('error', 'Verificación de seguridad fallida. Inténtalo de nuevo.');
         }
 

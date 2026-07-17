@@ -88,6 +88,36 @@
                         </svg>
                     </button>
                 </form>
+
+                @if(config('portfolio.recaptcha.site_key'))
+                    <script>
+                        (function () {
+                            var form = document.getElementById('contact-form');
+                            if (!form) return;
+
+                            form.addEventListener('submit', function (e) {
+                                e.preventDefault();
+
+                                if (typeof grecaptcha === 'undefined') {
+                                    console.error('reCAPTCHA no cargó correctamente. Verifica tu conexión e inténtalo de nuevo.');
+                                    return;
+                                }
+
+                                grecaptcha.ready(function () {
+                                    grecaptcha.execute('{{ config('portfolio.recaptcha.site_key') }}', { action: 'contact' })
+                                        .then(function (token) {
+                                            console.log('reCAPTCHA token:', token);
+                                            document.getElementById('recaptcha_token').value = token;
+                                            form.submit();
+                                        })
+                                        .catch(function (error) {
+                                            console.error('Error al ejecutar reCAPTCHA:', error);
+                                        });
+                                });
+                            });
+                        })();
+                    </script>
+                @endif
             </div>
 
             {{-- Contact info --}}
@@ -155,25 +185,4 @@
             </div>
         </div>
     </div>
-
-    @if(config('portfolio.recaptcha.site_key'))
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var form = document.getElementById('contact-form');
-                if (!form || typeof grecaptcha === 'undefined') return;
-
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-
-                    grecaptcha.ready(function () {
-                        grecaptcha.execute('{{ config('portfolio.recaptcha.site_key') }}', { action: 'contact' })
-                            .then(function (token) {
-                                document.getElementById('recaptcha_token').value = token;
-                                form.submit();
-                            });
-                    });
-                });
-            });
-        </script>
-    @endif
 </section>
