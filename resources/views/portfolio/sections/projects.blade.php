@@ -10,8 +10,8 @@
 
         <div class="grid md:grid-cols-2 gap-6">
             @foreach($projects as $index => $project)
-                <div class="project-card rounded-lg p-6 fade-up opacity-0 translate-y-4 transition-all duration-700"
-                     style="transition-delay: {{ $index * 100 }}ms">
+                <div class="project-card rounded-lg p-6 fade-up opacity-0 translate-y-4 transition-all duration-700 flex flex-col h-full"
+                     style="transition-delay: {{ $index * 120 }}ms">
 
                     {{-- Header --}}
                     <div class="flex items-start justify-between mb-4">
@@ -24,19 +24,41 @@
                         </span>
                     </div>
 
-                    {{-- Description --}}
-                    <p class="text-text text-sm leading-relaxed mb-4">
-                        {{ $project['description'] }}
-                    </p>
+                    {{-- Problem / Solution / Result --}}
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <p class="font-mono text-xs uppercase tracking-wider text-magenta mb-1">Problema:</p>
+                            <p class="text-text text-sm leading-relaxed">{{ $project['problem'] }}</p>
+                        </div>
+                        <div>
+                            <p class="font-mono text-xs uppercase tracking-wider text-cyan mb-1">Solución:</p>
+                            <p class="text-text text-sm leading-relaxed">{{ $project['solution'] }}</p>
+                        </div>
+                        <div class="p-3 rounded bg-neon-green/5 border border-neon-green/20">
+                            <p class="font-mono text-xs uppercase tracking-wider text-neon-green mb-1">Resultado:</p>
+                            <p class="text-text text-sm leading-relaxed">{{ $project['result'] }}</p>
+                        </div>
+                    </div>
 
                     {{-- Tags --}}
                     <div class="flex flex-wrap gap-2">
                         @foreach($project['tags'] as $tag)
-                            <span class="font-mono text-xs px-2 py-1 rounded bg-cyan/5 text-cyan border border-cyan/20">
+                            <span class="project-tag font-mono text-xs px-2 py-1 rounded bg-cyan/5 text-cyan border border-cyan/20">
                                 {{ $tag }}
                             </span>
                         @endforeach
                     </div>
+
+                    {{-- External link --}}
+                    @if(!empty($project['url']))
+                        <div class="mt-auto pt-4 flex justify-end">
+                            <a href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer"
+                               class="project-link inline-flex items-center gap-1 font-mono text-xs text-cyan">
+                                Ver proyecto
+                                <span aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

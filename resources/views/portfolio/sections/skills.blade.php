@@ -1,21 +1,21 @@
 {{-- Skills Section --}}
-<section id="habilidades" class="py-20 px-6 lg:px-12">
+<section id="stack" class="py-20 px-6 lg:px-12">
     <div class="max-w-5xl mx-auto">
         <div class="flex items-center gap-3 mb-10">
             <svg class="w-5 h-5 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
             </svg>
-            <h2 class="font-display font-bold text-2xl text-cyan glow-cyan tracking-wider uppercase">Tecnologías</h2>
+            <h2 class="font-display font-bold text-2xl text-cyan glow-cyan tracking-wider uppercase">Stack Tecnológico</h2>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             @php
                 $categoryLabels = [
-                    'backend'  => ['Backend', 'text-cyan', 'border-cyan/30'],
-                    'frontend' => ['Frontend', 'text-magenta', 'border-magenta/30'],
-                    'mobile'   => ['Mobile', 'text-neon-green', 'border-neon-green/30'],
-                    'devops'   => ['DevOps', 'text-neon-yellow', 'border-neon-yellow/30'],
-                    'security' => ['Seguridad', 'text-magenta', 'border-magenta/30'],
+                    'backend'   => ['Backend', 'text-cyan', 'border-cyan/30'],
+                    'devops'    => ['DevOps', 'text-neon-yellow', 'border-neon-yellow/30'],
+                    'security'  => ['Security', 'text-magenta', 'border-magenta/30'],
+                    'software'  => ['Software', 'text-neon-green', 'border-neon-green/30'],
+                    'knowledge' => ['Knowledge', 'text-cyan', 'border-cyan/30'],
                 ];
             @endphp
 
@@ -29,8 +29,9 @@
                         {{ $label[0] }}
                     </h3>
                     <div class="flex flex-wrap gap-2">
-                        @foreach($items as $skill)
-                            <span class="tech-badge border {{ $label[2] }}">
+                        @foreach($items as $skillIndex => $skill)
+                            <span class="tech-badge border {{ $label[2] }} fade-up opacity-0 translate-y-2 transition-all duration-500"
+                                  style="transition-delay: {{ $skillIndex * 50 }}ms">
                                 {{ $skill['name'] }}
                             </span>
                         @endforeach

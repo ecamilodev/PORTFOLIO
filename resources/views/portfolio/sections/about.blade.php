@@ -12,19 +12,18 @@
             {{-- Bio --}}
             <div class="panel p-6 space-y-4 fade-up opacity-0 translate-y-4 transition-all duration-700">
                 <p class="text-text leading-relaxed">
-                    Ingeniero de Sistemas y desarrollador web con enfoque en crear soluciones eficientes,
-                    escalables y seguras.
+                    Ingeniero de Sistemas especializado en el desarrollo de aplicaciones web utilizando
+                    <span class="text-cyan font-medium">Laravel</span> y <span class="text-cyan font-medium">PHP</span>.
+                    Cuento con experiencia en el diseño de arquitecturas backend, desarrollo de APIs REST,
+                    integración de servicios externos y despliegue de aplicaciones en entornos Linux.
                 </p>
                 <p class="text-text leading-relaxed">
-                    Me especializo en el backend con <span class="text-cyan font-medium">Laravel</span>,
-                    pero trabajo en todo el stack: desde bases de datos y APIs REST hasta interfaces móviles
-                    con <span class="text-cyan font-medium">Flutter</span> y despliegues en
-                    <span class="text-cyan font-medium">Linux</span>.
+                    Me apasiona construir soluciones escalables, seguras y mantenibles, participando tanto
+                    en el desarrollo del software como en la optimización de servidores y procesos de producción.
                 </p>
                 <p class="text-text leading-relaxed">
-                    Cuento con certificaciones en <span class="text-neon-green font-medium">ISO 27001:2022</span>
-                    e <span class="text-neon-green font-medium">ISO 19011:2018</span>, lo que me permite abordar
-                    cada proyecto con una visión integral de seguridad y calidad.
+                    Actualmente continúo fortaleciendo mis conocimientos en arquitectura de software,
+                    DevOps y tecnologías modernas del ecosistema web para crear productos digitales de alto impacto.
                 </p>
 
                 {{-- Quick facts --}}
@@ -35,15 +34,15 @@
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="font-mono text-xs text-text-muted w-24">Formación</span>
-                        <span class="font-mono text-sm text-text">Ing. Sistemas — 2025</span>
+                        <span class="font-mono text-sm text-text">Ing. Sistemas — 2020-2025</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="font-mono text-xs text-text-muted w-24">Enfoque</span>
-                        <span class="font-mono text-sm text-text">Backend · Full Stack · Security</span>
+                        <span class="font-mono text-sm text-text">Backend · Full Stack · DevOps</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <span class="font-mono text-xs text-text-muted w-24">Idiomas</span>
-                        <span class="font-mono text-sm text-text">Español (Nativo) · Inglés</span>
+                        <span class="font-mono text-sm text-text">Español · Inglés</span>
                     </div>
                 </div>
             </div>
@@ -68,18 +67,6 @@
                             <p class="font-display font-bold text-3xl text-neon-yellow">100%</p>
                             <p class="font-mono text-xs text-text-muted mt-1">Trabajo remoto</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="panel p-6 fade-up opacity-0 translate-y-4 transition-all duration-700 delay-200">
-                    <div class="flex items-start gap-3">
-                        <span class="text-2xl text-cyan opacity-50 font-mono leading-none">{</span>
-                        <div>
-                            <p class="font-mono text-sm text-text italic">
-                                "El código es poesía cuando resuelve<br>problemas reales de forma elegante."
-                            </p>
-                        </div>
-                        <span class="text-2xl text-cyan opacity-50 font-mono leading-none ml-auto">}</span>
                     </div>
                 </div>
             </div>

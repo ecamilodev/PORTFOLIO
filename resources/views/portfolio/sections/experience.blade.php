@@ -53,17 +53,36 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
                 </svg>
-                Formación & Certificaciones
+                Formación Académica
             </h3>
-            <div class="grid sm:grid-cols-2 gap-4">
-                <div class="p-4 rounded bg-void/50 border border-border">
+            <div class="p-4 rounded bg-void/50 border border-border">
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
                     <p class="font-medium text-white text-sm">Ingeniería de Sistemas</p>
-                    <p class="font-mono text-xs text-text-muted mt-1">Fundación Universitaria Los Libertadores — 2025</p>
+                    <p class="font-mono text-xs text-text-muted">2020 – 2025</p>
                 </div>
-                <div class="p-4 rounded bg-void/50 border border-border">
-                    <p class="font-medium text-white text-sm">ISO 27001:2022 & ISO 19011:2018</p>
-                    <p class="font-mono text-xs text-text-muted mt-1">Grupo Élite Organizacional</p>
-                </div>
+                <p class="font-mono text-xs text-cyan mb-3">Fundación Universitaria Los Libertadores</p>
+                <ul class="space-y-2">
+                    <li class="flex items-start gap-3 text-sm text-text">
+                        <span class="text-cyan mt-1 shrink-0">▸</span>
+                        <span>Formación en ingeniería de software.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-text">
+                        <span class="text-cyan mt-1 shrink-0">▸</span>
+                        <span>Diseño y desarrollo de aplicaciones web.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-text">
+                        <span class="text-cyan mt-1 shrink-0">▸</span>
+                        <span>Bases de datos y arquitectura de software.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-text">
+                        <span class="text-cyan mt-1 shrink-0">▸</span>
+                        <span>Desarrollo orientado a objetos y estructuras de datos.</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-sm text-text">
+                        <span class="text-cyan mt-1 shrink-0">▸</span>
+                        <span>Ingeniería del software y gestión de proyectos tecnológicos.</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

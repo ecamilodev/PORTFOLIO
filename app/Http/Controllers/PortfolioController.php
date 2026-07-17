@@ -10,11 +10,13 @@ class PortfolioController extends Controller
 {
     public function index()
     {
+        $services = $this->getServices();
         $projects = $this->getProjects();
         $skills   = $this->getSkills();
         $experience = $this->getExperience();
+        $certifications = $this->getCertifications();
 
-        return view('portfolio.index', compact('projects', 'skills', 'experience'));
+        return view('portfolio.index', compact('services', 'projects', 'skills', 'experience', 'certifications'));
     }
 
     public function contact(Request $request)
@@ -54,50 +56,99 @@ class PortfolioController extends Controller
         return back()->with('success', 'Mensaje enviado correctamente. Te responderé pronto.');
     }
 
+    private function getServices(): array
+    {
+        return [
+            [
+                'title'       => 'Backend Development',
+                'description' => 'Diseño y desarrollo de APIs REST, servicios backend y lógica de negocio utilizando Laravel y PHP.',
+                'icon'        => 'backend',
+            ],
+            [
+                'title'       => 'Arquitectura de Software',
+                'description' => 'Diseño de aplicaciones escalables, mantenibles y con arquitecturas limpias orientadas al crecimiento.',
+                'icon'        => 'architecture',
+            ],
+            [
+                'title'       => 'Web Development',
+                'description' => 'Desarrollo de aplicaciones web modernas, sitios corporativos y plataformas digitales completas.',
+                'icon'        => 'web',
+            ],
+            [
+                'title'       => 'DevOps',
+                'description' => 'Configuración y administración de servidores Linux, VPS, despliegues automatizados y CI/CD.',
+                'icon'        => 'devops',
+            ],
+            [
+                'title'       => 'Consultoría Tecnológica',
+                'description' => 'Asesoría en migración de plataformas, optimización de rendimiento y seguridad web.',
+                'icon'        => 'consulting',
+            ],
+        ];
+    }
+
     private function getProjects(): array
     {
         return [
             [
-                'title'       => 'TIMI Platform',
-                'description' => 'Plataforma de transporte tipo ride-sharing con apps móviles para usuarios y conductores, panel administrativo web y sistema de pagos integrado con Stripe.',
-                'tags'        => ['Laravel', 'Flutter', 'MySQL', 'Stripe', 'Firebase'],
-                'type'        => 'Full Stack',
-                'role'        => 'Lead Developer',
+                'title'    => 'TIMI Platform',
+                'type'     => 'Full Stack',
+                'role'     => 'Lead Developer',
+                'tags'     => ['Laravel', 'Flutter', 'Stripe', 'REST API', 'Firebase', 'MySQL'],
+                'url'      => 'https://www.timiweb.com/',
+                'problem'  => 'Empresa de transporte necesitaba una plataforma digital completa para conectar conductores y pasajeros en Puerto Rico, con pagos integrados y apps móviles.',
+                'solution' => 'Desarrollo de ecosistema completo: backend Laravel con APIs REST, sistema de pagos Stripe (authorize/capture), apps Flutter para usuarios y conductores, panel administrativo web y notificaciones en tiempo real con Firebase.',
+                'result'   => 'Plataforma en producción operando en Puerto Rico con sistema de pagos funcional y apps publicadas en Google Play.',
             ],
             [
-                'title'       => 'CMS S.A.S',
-                'description' => 'Sitio web corporativo para empresa del sector construcción. Panel administrador, galería de proyectos, formulario de contacto y cumplimiento legal (Ley 1581).',
-                'tags'        => ['Laravel 12', 'Tailwind CSS', 'Alpine.js', 'MySQL'],
-                'type'        => 'Full Stack',
-                'role'        => 'Developer',
+                'title'    => 'CMS S.A.S',
+                'type'     => 'Full Stack',
+                'role'     => 'Developer',
+                'tags'     => ['Laravel 12', 'Tailwind CSS', 'Alpine.js', 'MySQL'],
+                'url'      => 'https://cmssas.com/',
+                'problem'  => 'Empresa de construcción necesitaba presencia digital profesional y un sitio que cumpliera con la normativa legal colombiana.',
+                'solution' => 'Desarrollo de sitio corporativo con Laravel 12, panel administrador, galería de proyectos, formulario de contacto y cumplimiento de Ley 1581 de protección de datos.',
+                'result'   => 'Sitio web en producción con mejor presentación digital de la empresa y cumplimiento legal completo.',
             ],
             [
-                'title'       => 'DeUna Marketing',
-                'description' => 'Plataforma web de marketing digital con auditoría de seguridad completa, detección de vulnerabilidades y hardening de infraestructura.',
-                'tags'        => ['Laravel', 'Livewire', 'MySQL', 'Security Audit'],
-                'type'        => 'Backend & Security',
-                'role'        => 'Developer & Auditor',
+                'title'    => 'DeUna Marketing',
+                'type'     => 'Backend & Security',
+                'role'     => 'Developer & Auditor',
+                'tags'     => ['Laravel', 'Livewire', 'Security Audit', 'MySQL'],
+                'url'      => 'https://deunamarketing.com/',
+                'problem'  => 'Plataforma de marketing digital presentaba vulnerabilidades de seguridad críticas que comprometían la integridad del sistema.',
+                'solution' => 'Auditoría de seguridad completa, detección de vulnerabilidades (Livewire RCE, script injection), hardening de infraestructura y documentación de hallazgos.',
+                'result'   => 'Vulnerabilidades críticas remediadas y plataforma asegurada con documentación de auditoría entregada.',
             ],
             [
-                'title'       => 'Cuponex',
-                'description' => 'Marketplace de cupones y descuentos con sistema de carruseles dinámicos, panel de administración y gestión de comercios aliados.',
-                'tags'        => ['Laravel', 'Livewire', 'MySQL', 'Blade'],
-                'type'        => 'Backend',
-                'role'        => 'Backend Developer',
+                'title'    => 'Cuponex',
+                'type'     => 'Backend',
+                'role'     => 'Backend Developer',
+                'tags'     => ['Laravel', 'Livewire', 'MySQL', 'Blade'],
+                'url'      => 'https://www.cuponex.net/',
+                'problem'  => 'Marketplace de cupones requería funcionalidades dinámicas para la gestión de comercios aliados y experiencia de usuario mejorada.',
+                'solution' => 'Desarrollo backend con Laravel y Livewire, sistema de carruseles dinámicos, panel de administración y gestión de comercios.',
+                'result'   => 'Plataforma funcional con gestión eficiente de cupones y comercios aliados.',
             ],
             [
-                'title'       => 'ELSo Club Migration',
-                'description' => 'Plan de migración de plataforma educativa WordPress/LearnDash a Laravel. Arquitectura LMS, integración Stripe, capa social con Laravel Reverb.',
-                'tags'        => ['Laravel', 'Stripe', 'Laravel Reverb', 'MySQL'],
-                'type'        => 'Architecture & Planning',
-                'role'        => 'Solutions Architect',
+                'title'    => 'ELSo Club',
+                'type'     => 'Full Stack',
+                'role'     => 'Lead Developer',
+                'tags'     => ['Laravel', 'Livewire', 'Stripe', 'Laravel Reverb', 'MySQL'],
+                'url'      => 'https://elso.club/',
+                'problem'  => 'Plataforma educativa en WordPress/LearnDash necesitaba modernización completa para escalar y ofrecer mejor experiencia de usuario con funciones sociales.',
+                'solution' => 'Diseño de arquitectura Laravel para plataforma de cursos online con integración de pagos Stripe, capa social con Laravel Reverb y sistema donde cualquier usuario puede crear y vender cursos.',
+                'result'   => 'Arquitectura completa diseñada y en desarrollo activo con stack moderno.',
             ],
             [
-                'title'       => 'VPS Security Audit',
-                'description' => 'Auditoría integral de seguridad en servidor VPS: análisis de infraestructura, detección de vulnerabilidades críticas y plan de migración documentado.',
-                'tags'        => ['Linux', 'Security', 'Docker', 'Infrastructure'],
-                'type'        => 'Infrastructure & Security',
-                'role'        => 'Security Auditor',
+                'title'    => 'VPS Security Audit',
+                'type'     => 'Infrastructure & Security',
+                'role'     => 'Security Auditor',
+                'tags'     => ['Linux', 'Security', 'Docker', 'Infrastructure'],
+                'url'      => null,
+                'problem'  => 'Servidor VPS de producción presentaba riesgos críticos: sistema operativo EOL, sin firewall, versiones obsoletas de MySQL y Laravel.',
+                'solution' => 'Auditoría integral de infraestructura, análisis de vulnerabilidades, documentación completa con reporte técnico, presentación ejecutiva y plan de migración de 20 páginas.',
+                'result'   => 'Hallazgos críticos documentados y plan de remediación entregado para migración segura.',
             ],
         ];
     }
@@ -108,35 +159,68 @@ class PortfolioController extends Controller
             'backend' => [
                 ['name' => 'Laravel',    'icon' => 'laravel'],
                 ['name' => 'PHP',        'icon' => 'php'],
-                ['name' => 'MySQL',      'icon' => 'mysql'],
                 ['name' => 'REST APIs',  'icon' => 'api'],
-                ['name' => 'Livewire',   'icon' => 'livewire'],
-            ],
-            'frontend' => [
-                ['name' => 'Tailwind CSS', 'icon' => 'tailwind'],
-                ['name' => 'Alpine.js',    'icon' => 'alpine'],
-                ['name' => 'Blade',        'icon' => 'blade'],
-                ['name' => 'HTML5',        'icon' => 'html'],
-                ['name' => 'CSS3',         'icon' => 'css'],
-                ['name' => 'JavaScript',   'icon' => 'js'],
-            ],
-            'mobile' => [
-                ['name' => 'Flutter',  'icon' => 'flutter'],
-                ['name' => 'Dart',     'icon' => 'dart'],
-                ['name' => 'Firebase', 'icon' => 'firebase'],
+                ['name' => 'MySQL',      'icon' => 'mysql'],
+                ['name' => 'Firebase',   'icon' => 'firebase'],
+                ['name' => 'Java',       'icon' => 'java'],
             ],
             'devops' => [
-                ['name' => 'Docker',   'icon' => 'docker'],
-                ['name' => 'Linux',    'icon' => 'linux'],
-                ['name' => 'Git',      'icon' => 'git'],
-                ['name' => 'CI/CD',    'icon' => 'cicd'],
-                ['name' => 'SSH',      'icon' => 'ssh'],
+                ['name' => 'Linux',     'icon' => 'linux'],
+                ['name' => 'Docker',    'icon' => 'docker'],
+                ['name' => 'Git',       'icon' => 'git'],
+                ['name' => 'CI/CD',     'icon' => 'cicd'],
+                ['name' => 'Composer',  'icon' => 'composer'],
+                ['name' => 'cPanel',    'icon' => 'cpanel'],
             ],
             'security' => [
-                ['name' => 'ISO 27001',    'icon' => 'iso'],
-                ['name' => 'Pen Testing',  'icon' => 'pentest'],
-                ['name' => 'OWASP',        'icon' => 'owasp'],
-                ['name' => 'ISO 19011',    'icon' => 'audit'],
+                ['name' => 'OWASP',           'icon' => 'owasp'],
+                ['name' => 'ISO 27001',       'icon' => 'iso'],
+                ['name' => 'Security Audit',  'icon' => 'audit'],
+                ['name' => 'Web Security',    'icon' => 'websec'],
+            ],
+            'software' => [
+                ['name' => 'GitHub',  'icon' => 'github'],
+                ['name' => 'VS Code', 'icon' => 'vscode'],
+                ['name' => 'Postman', 'icon' => 'postman'],
+                ['name' => 'Astro',   'icon' => 'astro'],
+                ['name' => 'Flutter', 'icon' => 'flutter'],
+            ],
+            'knowledge' => [
+                ['name' => 'Machine Learning',       'icon' => 'ml'],
+                ['name' => 'Software Architecture',  'icon' => 'architecture'],
+                ['name' => 'Networks',               'icon' => 'networks'],
+                ['name' => 'Advanced Networking',    'icon' => 'networking'],
+                ['name' => 'System Auditing',        'icon' => 'sysaudit'],
+            ],
+        ];
+    }
+
+    private function getCertifications(): array
+    {
+        return [
+            [
+                'title'       => 'ISO 27001:2022',
+                'description' => 'Sistemas de Gestión de la Seguridad de la Información',
+                'issuer'      => 'Grupo Élite Organizacional / ACCIT',
+                'date'        => '2025',
+                'image'       => 'images/certificates/Certificado-0C8C5B55E8A3C4C0856A.jpg',
+                'url'         => null,
+            ],
+            [
+                'title'       => 'ISO 19011:2018',
+                'description' => 'Directrices para Auditar Sistemas de Gestión',
+                'issuer'      => 'Grupo Élite Organizacional / ACCIT',
+                'date'        => '2025',
+                'image'       => 'images/certificates/Certificado-1EB4505084D87118B8C7.jpg',
+                'url'         => null,
+            ],
+            [
+                'title'       => 'ISO 27001:2022 — IA en Sistemas de Gestión',
+                'description' => 'Uso de herramientas de inteligencia artificial en sistemas de gestión de la seguridad de la información',
+                'issuer'      => 'Grupo Élite Organizacional / ACCIT',
+                'date'        => '2025',
+                'image'       => 'images/certificates/Certificado-B8B26F24186191C7AF8A.jpg',
+                'url'         => null,
             ],
         ];
     }
@@ -151,23 +235,29 @@ class PortfolioController extends Controller
                 'period'  => '2025 – Presente',
                 'current' => true,
                 'tasks'   => [
-                    'Desarrollo y mantenimiento del backend Laravel para la plataforma TIMI (ride-sharing)',
-                    'Implementación de sistema de pagos con Stripe (authorize/capture)',
-                    'Desarrollo de apps móviles Flutter para usuarios y conductores',
-                    'Auditorías de seguridad en infraestructura VPS y aplicaciones web',
-                    'Gestión de despliegues en producción y CI/CD',
+                    'Desarrollo y mantenimiento de aplicaciones web escalables con Laravel y PHP.',
+                    'Diseño e implementación de APIs REST para la integración de servicios y plataformas externas.',
+                    'Implementación de sistemas de pago utilizando Stripe (Authorize & Capture).',
+                    'Desarrollo y mantenimiento de aplicaciones móviles con Flutter para usuarios y conductores.',
+                    'Gestión de despliegues en producción y procesos de integración continua (CI/CD).',
+                    'Administración y optimización de servidores Linux y VPS para entornos productivos.',
+                    'Auditorías de seguridad y optimización del rendimiento en aplicaciones web.',
+                    'Participación en el diseño de arquitectura de software y procesos de migración de plataformas.',
                 ],
             ],
             [
-                'role'    => 'Desarrollador Web Freelance',
+                'role'    => 'Software Developer Freelance',
                 'company' => 'Independiente',
                 'location'=> 'Colombia',
                 'period'  => '2025 – Presente',
                 'current' => true,
                 'tasks'   => [
-                    'Diseño y desarrollo de sitios corporativos con Laravel',
-                    'Auditorías de seguridad web (ISO 27001)',
-                    'Consultoría en arquitectura de software y migración de plataformas',
+                    'Desarrollo de sitios web corporativos y aplicaciones utilizando Laravel y tecnologías modernas del ecosistema web.',
+                    'Diseño de arquitecturas backend orientadas al rendimiento, escalabilidad y mantenibilidad del software.',
+                    'Consultoría técnica para migración y modernización de aplicaciones y servidores.',
+                    'Implementación de soluciones de seguridad web basadas en buenas prácticas e ISO 27001.',
+                    'Optimización de bases de datos MySQL y procesos backend para mejorar tiempos de respuesta.',
+                    'Configuración y despliegue de proyectos web en entornos Linux y VPS.',
                 ],
             ],
         ];

@@ -27,6 +27,16 @@ html {
     scrollbar-color: var(--color-cyan-dim) var(--color-void);
 }
 
+/* ── Respect reduced motion: neutralize every animation/transition site-wide ── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 body {
     background-color: var(--color-void);
     color: var(--color-text);
@@ -219,6 +229,21 @@ body {
     box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
 }
 
+.timeline-item-next {
+    border-left-color: var(--color-magenta);
+}
+
+.timeline-item-next::before {
+    background: var(--color-magenta);
+    box-shadow: 0 0 8px rgba(255, 0, 128, 0.6);
+    animation: pulse-magenta 2s infinite;
+}
+
+@keyframes pulse-magenta {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(255, 0, 128, 0); }
+}
+
 /* ── Form inputs ── */
 .input-cyber {
     background: rgba(0, 240, 255, 0.03);
@@ -239,4 +264,152 @@ body {
 
 .input-cyber::placeholder {
     color: var(--color-text-muted);
+}
+
+/* ── Project link ── */
+.project-link {
+    transition: text-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.project-link:hover {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+/* ── Certifications carousel (Swiper) ── */
+.certs-swiper-prev,
+.certs-swiper-next {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid var(--color-cyan);
+    background: rgba(6, 10, 19, 0.8);
+    color: var(--color-cyan);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.certs-swiper-prev:hover,
+.certs-swiper-next:hover {
+    background: rgba(0, 240, 255, 0.12);
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+}
+
+.certs-swiper-prev {
+    left: -0.75rem;
+}
+
+.certs-swiper-next {
+    right: -0.75rem;
+}
+
+.certs-swiper-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.certs-swiper-pagination .swiper-pagination-bullet {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--color-border);
+    opacity: 1;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.certs-swiper-pagination .swiper-pagination-bullet-active {
+    background: var(--color-cyan);
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    width: 1.5rem;
+    border-radius: 9999px;
+}
+
+/* ── Roadmap timeline (animated) ── */
+.roadmap-line {
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.roadmap-line.in-view {
+    transform: scaleY(1);
+}
+
+.roadmap-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-cyan);
+    box-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    opacity: 0;
+    transform: scale(0.3);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.roadmap-dot.in-view {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.roadmap-dot-next {
+    background: var(--color-magenta);
+    box-shadow: 0 0 8px rgba(255, 0, 128, 0.6);
+    animation: pulse-magenta 2s infinite;
+}
+
+/* ── Sidebar active link: soft pulsing lateral glow ── */
+@keyframes pulse-shadow-cyan {
+    0%, 100% { box-shadow: inset 4px 0 8px -4px rgba(0, 240, 255, 0.3); }
+    50%      { box-shadow: inset 4px 0 14px -4px rgba(0, 240, 255, 0.6); }
+}
+
+.nav-link.active {
+    animation: pulse-shadow-cyan 2.5s ease-in-out infinite;
+}
+
+/* ── Project card: staggered tag glow wave on hover ── */
+.project-tag {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.project-card:hover .project-tag {
+    background-color: rgba(0, 240, 255, 0.12);
+    border-color: var(--color-cyan);
+    color: var(--color-white);
+}
+
+.project-tag:nth-child(1) { transition-delay: 0ms; }
+.project-tag:nth-child(2) { transition-delay: 60ms; }
+.project-tag:nth-child(3) { transition-delay: 120ms; }
+.project-tag:nth-child(4) { transition-delay: 180ms; }
+.project-tag:nth-child(5) { transition-delay: 240ms; }
+.project-tag:nth-child(6) { transition-delay: 300ms; }
+.project-tag:nth-child(7) { transition-delay: 360ms; }
+
+/* ── Terminal window: glow border on hover ── */
+.terminal-window {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.terminal-window:hover {
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+}
+
+/* ── Service card: icon scale on hover ── */
+.service-icon {
+    transition: transform 0.3s ease;
+}
+
+.panel:hover .service-icon {
+    transform: scale(1.1);
 }
