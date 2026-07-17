@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -30,15 +31,30 @@ class PortfolioController extends Controller
         RateLimiter::hit($key, 300); // 5 min window
 
         $validated = $request->validate([
-            'name'    => ['required', 'string', 'max:100'],
-            'email'   => ['required', 'email:rfc,dns', 'max:150'],
-            'subject' => ['required', 'string', 'max:150'],
-            'message' => ['required', 'string', 'max:2000'],
+            'name'            => ['required', 'string', 'max:100'],
+            'email'           => ['required', 'email:rfc,dns', 'max:150'],
+            'subject'         => ['required', 'string', 'max:150'],
+            'message'         => ['required', 'string', 'max:2000'],
+            'recaptcha_token' => ['required', 'string'],
         ]);
 
         // Honeypot check
         if ($request->filled('website')) {
             return back()->with('success', 'Mensaje enviado correctamente.');
+        }
+
+        try {
+            $recaptcha = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                'secret'   => config('portfolio.recaptcha.secret_key'),
+                'response' => $validated['recaptcha_token'],
+                'remoteip' => $request->ip(),
+            ])->json();
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            $recaptcha = null;
+        }
+
+        if (empty($recaptcha['success']) || ($recaptcha['score'] ?? 0) < 0.5) {
+            return back()->with('error', 'Verificación de seguridad fallida. Inténtalo de nuevo.');
         }
 
         Mail::raw(
@@ -47,7 +63,7 @@ class PortfolioController extends Controller
             . "Asunto: {$validated['subject']}\n\n"
             . $validated['message'],
             function ($mail) use ($validated) {
-                $mail->to(config('portfolio.contact_email', 'contacto@example.com'))
+                $mail->to(config('portfolio.contact_email', 'sanchezeduard68@gmail.com'))
                      ->subject("Portfolio — {$validated['subject']}")
                      ->replyTo($validated['email'], $validated['name']);
             }

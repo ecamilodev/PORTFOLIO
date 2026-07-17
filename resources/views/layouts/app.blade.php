@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @if(config('portfolio.recaptcha.site_key'))
+        <script src="https://www.google.com/recaptcha/api.js?render={{ config('portfolio.recaptcha.site_key') }}"></script>
+    @endif
 </head>
 <body class="min-h-screen antialiased">
 

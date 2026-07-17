@@ -23,13 +23,15 @@
                     </div>
                 @endif
 
-                <form method="POST" action="{{ route('contact.send') }}">
+                <form method="POST" action="{{ route('contact.send') }}" id="contact-form">
                     @csrf
 
                     {{-- Honeypot --}}
                     <div class="hidden" aria-hidden="true">
                         <input type="text" name="website" tabindex="-1" autocomplete="off">
                     </div>
+
+                    <input type="hidden" name="recaptcha_token" id="recaptcha_token">
 
                     <div class="grid sm:grid-cols-2 gap-4 mb-4">
                         <div>
@@ -115,14 +117,14 @@
                             </div>
                         </a>
 
-                        <a href="mailto:contacto@example.com"
+                        <a href="mailto:sanchezeduard68@gmail.com"
                            class="flex items-center gap-3 text-text hover:text-cyan transition-colors group">
                             <div class="w-9 h-9 rounded border border-border group-hover:border-cyan/50 flex items-center justify-center transition-colors bg-void/50">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
                             <div>
                                 <p class="font-mono text-sm">Email</p>
-                                <p class="font-mono text-xs text-text-muted">contacto@example.com</p>
+                                <p class="font-mono text-xs text-text-muted">sanchezeduard68@gmail.com</p>
                             </div>
                         </a>
                     </div>
@@ -153,4 +155,25 @@
             </div>
         </div>
     </div>
+
+    @if(config('portfolio.recaptcha.site_key'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var form = document.getElementById('contact-form');
+                if (!form || typeof grecaptcha === 'undefined') return;
+
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    grecaptcha.ready(function () {
+                        grecaptcha.execute('{{ config('portfolio.recaptcha.site_key') }}', { action: 'contact' })
+                            .then(function (token) {
+                                document.getElementById('recaptcha_token').value = token;
+                                form.submit();
+                            });
+                    });
+                });
+            });
+        </script>
+    @endif
 </section>
